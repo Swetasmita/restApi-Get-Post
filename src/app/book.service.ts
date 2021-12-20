@@ -12,14 +12,14 @@ export class BookService {
     url = "api/books";
     constructor(private http: HttpClient) { }
 
-//HttpClient GET request 
+//HttpClient GET request to read data
     getBooksObservable(): Observable<Book[]> {
         return this.http.get(this.url).pipe(
             map(this.extractData),
             catchError(this.handleErrorObservable)
         );
     }
-    //HttpClient POST request 
+    //HttpClient POST request to insert data
     addBooksObservable(book: Book): Observable<Book> {
         let httpHeaders = new HttpHeaders({
             'Content-Type': 'application/json',
@@ -34,6 +34,7 @@ export class BookService {
         let body = res;
         return body;
     }
+    //Error Handling Messages
     private handleErrorObservable(error: any) {
         console.error(error.message || error);
         return throwError(error);
